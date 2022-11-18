@@ -17,4 +17,8 @@ users to create tags for various kanji
 
 to switch apps run this CMD
 export FLASK_APP=kanji
+or
+export FLASK_APP=app
+
+then run this CMD
 flask run
