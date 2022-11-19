@@ -11,21 +11,20 @@ db = client.flask_db
 all_kanji = db.kanjis
 
 @app.route('/')
-@app.route('/app/')
 def index():
-    return redirect('/app/all')
+    return redirect(url_for('search'))
 
 
 @app.errorhandler(404)
 def error_not_found(e):
-    problem = "<p>{0} is your problem</p><p>Id not valid or item has been deleted.</p>".format(e)
+    problem = "<p>{0}</p><p>Id not valid or item has been deleted.</p>".format(e)
     return problem
 
 
-@app.route('/app/<tag>', methods=('GET', 'POST'))
-def search(tag):
+@app.route('/app/', methods=('GET', 'POST'))
+def search():
     payload = request.args.get('tag', default='', type=str)
-    if tag == 'all' or tag == '':
+    if payload == '':
         # default page
         kanji_found = list(all_kanji.find({}))
     else:
@@ -33,7 +32,7 @@ def search(tag):
         kanji_found = list(all_kanji.find( {'tags': payload} ))
 
     # user gets page
-    return render_template('search.html', kanji_list=kanji_found)
+    return render_template('search.html', filter=payload, kanji_list=kanji_found)
 
 
 @app.post('/app/insert/')
@@ -42,14 +41,15 @@ def insert_kanji():
     symbol = request.form['symbol']
     description = request.form['description']
     all_kanji.insert_one({'symbol': symbol, 'description': description, 'tags': ['new', 'free']})
-    return redirect('/app/all')
+    return redirect(url_for('search'))
 
 
 @app.post('/app/delete/<id>/')
 def delete_kanji(id):
     # user deletes a kanji using object button
-    all_kanji.delete_one({'_id': ObjectId(id)})
-    return redirect('/app/all')
+    if ObjectId.is_valid(id):
+        all_kanji.delete_one({'_id': ObjectId(id)})
+    return redirect(url_for('search'))
 
 
 @app.route('/app/kanji/<id>', methods=('GET', 'POST'))

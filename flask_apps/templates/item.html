@@ -36,8 +36,11 @@
         <p>Here is the description</p>
         <p>{{ kanji['description'] }}</p>
         {% for tag in kanji['tags'] %}
+        <button class="btn btn-outline-info" type="button">
+            {{ tag }}
+        </button>
         <div class="link">
-            <a href="http://127.0.0.1:5000/app/filter?tag={{ tag }}"><p>{{ tag }}</p></a>
+            <a href="http://127.0.0.1:5000/app/?tag={{ tag }}">{{ tag }}</a>
             <form method="POST" action="{{ url_for('delete_tag', id=kanji['_id'], tag=tag) }}" >
                 <input type="submit" value="Delete Me">
             </form>
@@ -55,7 +58,9 @@
                 </p>
             </form>
         </div>
-        <a href="/app/all">Go home?</a>
+        <button class="btn btn-outline-info" type="button">
+            Go Home?
+        </button>
     </div>
 </body>
 </html>

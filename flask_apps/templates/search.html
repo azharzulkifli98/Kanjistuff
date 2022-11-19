@@ -35,14 +35,17 @@
     <div class="content">
         <p>Search for any 漢字 using tags!</p>
         <p> 
-            <form method="GET" action="{{ url_for('search', tag='filter') }}" >
-                <input type="text" name="tag"></input>
+            <form method="GET" action="{{ url_for('search') }}" >
+                <input type="text" name="tag" value="{{ filter }}"></input>
                 <input type="submit" value="Search">
             </form>
         </p>
         {% for kanji in kanji_list %}
+        <button class="btn btn-outline-info" type="button">
+            Go Home?
+        </button>
         <div class="link">
-            <a href="kanji/{{ kanji['_id'] }}"><p>{{ kanji['symbol'] }} <i>({{ kanji['description']}})</i></p></a>
+            <a href="kanji/{{ kanji['_id'] }}">{{ kanji['symbol'] }} ({{ kanji['description']}})</a>
             <form method="POST" action="{{ url_for('delete_kanji', id=kanji['_id']) }}" >
                 <input type="submit" value="Delete Me"
                        onclick="return confirm('Are you sure you want to delete this entry?')">
