@@ -37,25 +37,25 @@
         <p>{{ kanji['description'] }}</p>
         {% for tag in kanji['tags'] %}
         <div class="link">
-            <p>{{ tag }}</p>
+            <a href="http://127.0.0.1:5000/app/filter?tag={{ tag }}"><p>{{ tag }}</p></a>
+            <form method="POST" action="{{ url_for('delete_tag', id=kanji['_id'], tag=tag) }}" >
+                <input type="submit" value="Delete Me">
+            </form>
         </div>
         {% endfor %}
         <div class="footer">
             <p>Add a tag</p>
-            <form method="POST" action="{{ url_for('insert') }}" >
+            <form method="POST" action="{{ url_for('item', id=kanji['_id']) }}" >
                 <p>
-                    <b><label for="symbol">Symbol</label></b>
-                    <input type="text" name="symbol" required maxlength="1"></input>
-                </p>
-                <p>
-                    <b><label for="description">Description</label></b>
-                    <input type="text" name="description" required maxlength="64"></input>
+                    <b><label for="tag">Tag</label></b>
+                    <input type="text" name="tag" required minlength="3"></input>
                 </p>
                 <p>
                     <input type="submit" value="Add Me">
                 </p>
             </form>
         </div>
+        <a href="/app/all">Go home?</a>
     </div>
 </body>
 </html>
