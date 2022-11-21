@@ -1,0 +1,3 @@
+# Byte-compiled / optimized / DLL files
+flask_apps/__pycache__/
+*.py[cod]
