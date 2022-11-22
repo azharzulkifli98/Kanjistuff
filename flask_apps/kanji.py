@@ -1,7 +1,10 @@
-from pydoc import describe
 from flask import Flask, render_template, request, url_for, redirect, abort
 from pymongo import MongoClient
 from bson import ObjectId
+from pydoc import describe
+import requests
+
+KANJIAPI = 'https://kanjiapi.dev/v1/kanji/'
 
 app = Flask(__name__)
 
@@ -57,7 +60,7 @@ def item(id):
     # ensure id actually exists
     if not ObjectId.is_valid(id) or all_kanji.find( {'_id': ObjectId(id)} ).count() == 0:
         abort(404)
-    
+
     # option to add a new tag
     if request.method == 'POST':
         new_tag = request.form['tag']
@@ -65,6 +68,9 @@ def item(id):
 
     # load page with item
     item = all_kanji.find_one( {'_id': ObjectId(id)} )
+        
+    # get API info on kanji
+    item['extra'] = requests.get(KANJIAPI + item['symbol']).json()
     return render_template('item.html', kanji=item)
 
 
@@ -75,7 +81,4 @@ def delete_tag(id, tag):
     return redirect(url_for('item', id=id))
 
 
-# fix search by tag
-# standardize code format
 # make UI more appealing
-
