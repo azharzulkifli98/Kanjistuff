@@ -33,8 +33,9 @@
         <h1>{{ kanji['symbol'] }}</h1>
     </div>
     <div class="content">
-        <p>{{ kanji['description'] }}</p>
-        <p>{{ kanji['extra'] }}</p>
+        <p>Number of strokes: {{ kanji['extra']['stroke_count'] }}</p>
+        <p>Meanings: {{ kanji['extra']['meanings'] }}</p>
+        <p>Various readings: {{ kanji['extra']['kun_readings'] }} or {{ kanji['extra']['on_readings'] }}</p>
         {% for tag in kanji['tags'] %}
         <button class="btn btn-outline-info" type="button">
             {{ loop.index }}
