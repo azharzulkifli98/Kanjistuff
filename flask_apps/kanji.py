@@ -35,7 +35,7 @@ def search():
         kanji_found = list(all_kanji.find( {'tags': payload} ))
 
     # user gets page
-    return render_template('search.html', filter=payload, kanji_list=kanji_found)
+    return render_template('search_kanji.html', filter=payload, kanji_list=kanji_found)
 
 
 @app.post('/app/insert/')

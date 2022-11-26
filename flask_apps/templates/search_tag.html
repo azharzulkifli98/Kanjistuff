@@ -1,0 +1,35 @@
+{% extends 'search.html' %}
+{% block content %}
+    <p>Find a tag to filter by!</p>
+    <p> 
+        <form method="GET" action="{{ url_for('search') }}" >
+            <input type="text" name="tag" value="{{ filter }}"></input>
+            <label>Tag contains:
+            <input list="browsers" name="myBrowser" /></label>
+            <datalist id="browsers">
+                <option value="Chrome">
+                <option value="Firefox">
+                <option value="Internet Explorer">
+                <option value="Opera">
+                <option value="Safari">
+                <option value="Microsoft Edge">
+            </datalist>
+            <input type="submit" value="Search">
+        </form>
+    </p>
+    <table>
+        {% for tag in tag_list %}
+            {% if loop.index0 % 5 == 0 %}
+                <tr>
+            {% endif %}
+            <form method="GET" action="{{ url_for('item', id=kanji['_id']) }}" >
+                <td>
+                    <button class="btn btn-outline-dark">{{ kanji['symbol'] }}<ul><li>hi</li><li>hie</li></ul></button>
+                </td>
+            </form>
+            {% if loop.index % 5 == 0 or loop.last %}
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+{% endblock %}
