@@ -4,19 +4,13 @@
 {% endblock %}
 {% block content %}
     <p>Number of strokes: {{ kanji['extra']['stroke_count'] }}</p>
-    <p>Meanings: {{ kanji['extra']['meanings'] }}</p>
-    <p>Various readings: {{ kanji['extra']['kun_readings'] }} or {{ kanji['extra']['on_readings'] }}</p>
+    <p>Meanings: {% for meaning in kanji['extra']['meanings'] %} {{ meaning }}, {% endfor %}</p>
+    <p>Various readings: {% for reading in kanji['extra']['kun_readings'] %} {{ reading }} {% endfor %}</p>
     {% for tag in kanji['tags'] %}
-    <button class="btn btn-outline-info" type="button">
-        {{ loop.index }}
-    </button>
     <div class="link">
         <form method="GET" action="{{ url_for('search') }}" >
-            <p>{{ tag }}</p>
-        </form>
-        <a href="http://127.0.0.1:5000/app/?tag={{ tag }}">{{ tag }}</a>
-        <form method="POST" action="{{ url_for('delete_tag', id=kanji['_id'], tag=tag) }}" >
-            <input type="submit" value="Delete Me">
+            {{ loop.index }}
+            <input type="submit" class="btn btn-outline-dark" value="{{ tag }}">
         </form>
     </div>
     {% endfor %}
