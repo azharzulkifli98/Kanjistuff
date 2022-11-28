@@ -12,6 +12,7 @@ client = MongoClient('localhost', 27017)
 
 db = client.flask_db
 all_kanji = db.kanjis
+all_tags = db.tags
 
 @app.route('/')
 def index():
@@ -24,7 +25,7 @@ def error_not_found(e):
     return problem
 
 
-@app.route('/app/', methods=('GET', 'POST'))
+@app.route('/app/kanji/', methods=('GET', 'POST'))
 def search():
     payload = request.args.get('tag', default='', type=str)
     if payload == '':
@@ -38,7 +39,13 @@ def search():
     return render_template('search_kanji.html', filter=payload, kanji_list=kanji_found)
 
 
-@app.post('/app/insert/')
+@app.get('/app/tags/')
+def get_tags():
+    # user gets page
+    return render_template('search_tag.html', tag_list=list(all_tags.find()))
+
+
+@app.post('/app/kanji/insert/')
 def insert_kanji():
     # user adds a kanji using input forms
     symbol = request.form['symbol']
@@ -47,7 +54,7 @@ def insert_kanji():
     return redirect(url_for('search'))
 
 
-@app.post('/app/delete/<id>/')
+@app.post('/app/kanji/delete/<id>/')
 def delete_kanji(id):
     # user deletes a kanji using object button
     if ObjectId.is_valid(id):

@@ -24,7 +24,7 @@
             {% endif %}
             <form method="GET" action="{{ url_for('item', id=kanji['_id']) }}" >
                 <td>
-                    <button class="btn btn-outline-dark">{{ kanji['symbol'] }}<ul><li>hi</li><li>hie</li></ul></button>
+                    <button class="btn btn-outline-dark">{{ tag['name'] }}<ul><li>hi</li><li>hie</li></ul></button>
                 </td>
             </form>
             {% if loop.index % 5 == 0 or loop.last %}

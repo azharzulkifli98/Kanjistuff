@@ -1,5 +1,17 @@
 {% extends 'base.html' %}
 {% block header %}
+    <nav class="navbar navbar-light bg-light">
+        <span class="navbar-brand">
+            <form method="GET" action="{{ url_for('search') }}" >
+                <input type="submit" class="btn btn-outline-info" value="Kanji" style="font-size: 25px;">
+            </form>
+        </span>
+        <span class="navbar-brand">
+            <form method="GET" action="{{ url_for('get_tags') }}" >
+                <input type="submit" class="btn btn-outline-info" value="Tags" style="font-size: 25px;">
+            </form>
+        </span>
+    </nav>
     <h1>Kanji Finder</h1>
 {% endblock %}
 {% block content %}
