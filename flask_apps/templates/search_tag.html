@@ -3,7 +3,7 @@
     <p>Find a tag to filter by!</p>
     <p> 
         <form method="GET" action="{{ url_for('search') }}" >
-            <input type="text" name="tag" value="{{ filter }}"></input>
+            <input type="text" name="tag" value=""></input>
             <label>Tag contains:
             <input list="browsers" name="myBrowser" /></label>
             <datalist id="browsers">
@@ -19,17 +19,16 @@
     </p>
     <table>
         {% for tag in tag_list %}
-            {% if loop.index0 % 5 == 0 %}
-                <tr>
-            {% endif %}
-            <form method="GET" action="{{ url_for('item', id=kanji['_id']) }}" >
-                <td>
-                    <button class="btn btn-outline-dark">{{ tag['name'] }}<ul><li>hi</li><li>hie</li></ul></button>
-                </td>
-            </form>
-            {% if loop.index % 5 == 0 or loop.last %}
-                </tr>
-            {% endif %}
+            <tr>
+                <form method="GET" action="{{ url_for('search') }}" >
+                    <button class="btn btn-outline-dark">
+                        <td>{{ tag['name'] }}</td>
+                        <td>{{ tag['author'] }}</td>
+                        <td>{{ tag['description'] }}</td>
+                        <td>{{ tag['count'] }}</td>
+                    </button>
+                </form>
+            </tr>
         {% endfor %}
     </table>
 {% endblock %}

@@ -71,7 +71,14 @@ def item(id):
     # option to add a new tag
     if request.method == 'POST':
         new_tag = request.form['tag']
-        all_kanji.update_one( {'_id': ObjectId(id)}, {'$push': {'tags': new_tag}} )
+        if all_tags.find( {'name': new_tag} ).count() == 1:
+            # increase count by one and append to list
+            plus_one = all_tags.find_one( {'name': new_tag} )['count'] + 1
+            all_tags.update_one( {'name': new_tag}, {'$set': {'count': plus_one}} )
+            all_kanji.update_one( {'_id': ObjectId(id)}, {'$push': {'tags': new_tag}} )
+        else:
+            # throw error
+            abort(404)
 
     # load page with item
     item = all_kanji.find_one( {'_id': ObjectId(id)} )
@@ -84,7 +91,8 @@ def item(id):
 @app.post('/app/kanji/<id>/delete/<tag>')
 def delete_tag(id, tag):
     # option to remove a tag
-    all_kanji.update_one( {'_id': ObjectId(id)}, { '$pull': { 'tags': tag }} )
+    if ObjectId.is_valid(tag):
+        all_kanji.update_one( {'_id': ObjectId(id)}, { '$pull': { 'tags': tag }} )
     return redirect(url_for('item', id=id))
 
 
