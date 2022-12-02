@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block header %}
+    <h1>{{ kanji['symbol'] }}</h1>
+{% endblock %}
+{% block content %}
+    <p>Number of strokes: {{ kanji['extra']['stroke_count'] }}</p>
+    <p>Meanings: {% for meaning in kanji['extra']['meanings'] %} {{ meaning }}, {% endfor %}</p>
+    <p>Various readings: {% for reading in kanji['extra']['kun_readings'] %} {{ reading }} {% endfor %}</p>
+    {% for tag in kanji['tags'] %}
+    <div class="link">
+        <form method="GET" action="{{ url_for('get_list_kanji') }}" >
+            {{ loop.index }}
+            <input type="submit" name="tag" class="btn btn-outline-dark" value="{{ tag }}">
+        </form>
+    </div>
+    {% endfor %}
+{% endblock %}
+{% block footer %}
+    <p>Could add a go to top of page button here</p>
+{% endblock %}

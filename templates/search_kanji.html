@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block header %}
+    <h1>Kanji Finder</h1>
+{% endblock %}
+{% block content %}
+    <p>Search for any 漢字 using tags!</p>
+    <p> 
+        <form method="GET" action="{{ url_for('get_list_kanji') }}" >
+            <label>
+                Enter a tag to filter by:
+                <input list="all_tags" name="tag" value="{{ filter }}">
+            </label>
+            <datalist id="all_tags">
+                {% for tag in tag_list %}
+                    <option value="{{ tag['name'] }}">
+                {% endfor %}
+            </datalist>
+            <input type="submit" value="Search">
+        </form>
+    </p>
+    <table>
+        {% for kanji in kanji_list %}
+            {% if loop.index0 % 5 == 0 %}
+                <tr>
+            {% endif %}
+            <form method="GET" action="{{ url_for('get_item_kanji', id=kanji['_id']) }}" >
+                <td>
+                    <input type="submit" class="btn btn-outline-dark" value="{{ kanji['symbol'] }}" style="font-size: 25px;">
+                </td>
+            </form>
+            {% if loop.index % 5 == 0 or loop.last %}
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+{% endblock %}
+{% block footer %}
+    <p>Want to add pagination here</p>
+{% endblock %}

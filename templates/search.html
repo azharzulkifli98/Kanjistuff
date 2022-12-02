@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block header %}
+    <h1>Kanji Finder</h1>
+{% endblock %}
+{% block content %}
+{% endblock %}
+{% block footer %}
+    <p>Add a new kanji character!</p>
+    <form method="POST" action="{{ url_for('insert_kanji') }}" >
+        <p>
+            <b><label for="symbol">Symbol</label></b>
+            <input type="text" name="symbol" required maxlength="1"></input>
+        </p>
+        <p>
+            <b><label for="description">Description</label></b>
+            <input type="text" name="description" required maxlength="64"></input>
+        </p>
+        <p>
+            <input type="submit" value="Add Me"
+                onclick="return confirm('Are you sure you want to add this character? (make sure it\'s not a duplicate)')">
+        </p>
+    </form>
+{% endblock %}

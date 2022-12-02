@@ -10,3 +10,80 @@ top wrap
 left wrap
 left hang
 bottom wrap
+
+kanshudo radicals
+
+
+users can view
+index.html
+search.html
+item.html
++ login.html
+
+find out design for MVP
+find out design for beta
+find out design for 1.0
+
+home
+kanji - add tag at bottom
+tags
+list of kanji
+list of tags - add tag at bottom
+
+/app/
+/app/kanji/<id>
+/app/tags/<id>
+/app/kanji/all?tag= author=
+/app/tags/all?contains=
+
+register users in top left corner
+/app/user/signup
+
+tag categories
+- admin added tags
+- my tags
+- any user tags
+
+for sure need user accounts
+admin account can be treated like any other
+user account
+- only user can add their tags
+- only user can remove their tags
+admin tags will be the same
+can filter tags by user or view all
+spam users can be filtered out in this method
+
+
+
+
+
+01 single dash
+02 big cross
+03 left facing roof
+04 double dash
+05 triple dash
+06 shoes
+07 box
+08 sun
+09 water
+10 fire
+11 hanger
+12 person
+13 convey
+14 single spear
+15 eye
+16 helmet
+17 pig
+18 arrow
+19 big
+20 mountain
+21 connected gate
+22 strength
+23 heavy
+24 field
+25 mata
+26 cliff
+27 step/ pillar
+28 possible
+29 right hook
+30 

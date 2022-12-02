@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block header %}
+    <h1>Kanji Tag Finder</h1>
+{% endblock %}
+{% block content %}
+    <p>Find a tag to filter by!</p>
+    <p> 
+        <form method="GET" action="{{ url_for('get_list_tag') }}" >
+            <label>
+                Tag contains:
+                <input list="all_tags" name="filter" value="{{ filter }}">
+            </label>
+            <datalist id="all_tags">
+                {% for tag in tag_list %}
+                    <option value="{{ tag['name'] }}">
+                {% endfor %}
+            </datalist>
+            <input type="submit" value="Search">
+        </form>
+    </p>
+    <table>
+        {% for tag in tag_list %}
+            <tr>
+                <!--form method="GET" action="{{ url_for('get_list_kanji') }}" >
+                    <td>{{ tag['name'] }}</td>
+                    <td>{{ tag['author'] }}</td>
+                    <td>{{ tag['description'] }}</td>
+                    <td>
+                        <button type="submit" name="tag" class="btn btn-outline-dark" value="{{ tag['name'] }}">
+                            {{ tag['count'] }}
+                        </button>
+                    </td>
+                </form-->
+                
+                <td><a href="{{ url_for('get_list_kanji') }}" name="tag" value="{{ tag['name'] }}">{{ tag['name'] }}</a></td>
+                <td><a href="{{ url_for('get_list_kanji') }}" name="tag" value="{{ tag['name'] }}" tabindex="-1">{{ tag['author'] }}</a></td>
+                <td><a href="{{ url_for('get_list_kanji') }}" name="tag" value="{{ tag['name'] }}" tabindex="-1">{{ tag['description'] }}</a></td>
+                <td><a href="{{ url_for('get_list_kanji') }}" name="tag" value="{{ tag['name'] }}" tabindex="-1">{{ tag['count'] }}</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
+{% block footer %}
+    <p>Want to add pagination here</p>
+{% endblock %}
